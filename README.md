@@ -1,1 +1,1 @@
-# CSONAR_GITHUB
+# Sample Codesonar GitHub Integration
