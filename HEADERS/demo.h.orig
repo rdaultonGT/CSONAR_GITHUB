@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include <iostream>
+
+#define SCIP_CALL(x)   do                                                                                     \
+	{                                                                                      \
+		int _restat_;                                                              \
+		if( (_restat_ = (x)) != 0 )                                                 \
+			{                                                                                   \
+				SCIPerrorMessage("Error <%d> in function call\n", _restat_);                     \
+				return _restat_;                                                                 \
+			}                                                                                  \
+	}                                                                                      \
+	while( 0 )		
+
+
+static int var;
+
+/*
+char * retMem()
+{
+	return (char*)malloc(10);
+}
+*/
+
+extern char*  retMem();
+
+void callretMem()
+{
+	retMem();
+}
+
+class myClass
+{
+	public:
+		~myClass()
+		{
+			std::cout << "DELETING" << std::endl;
+			//delete this;
+		}
+};
