@@ -1,0 +1,24 @@
+name: Codesonar GitHub Demo
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+env:
+  PROJECT_NAME: ${{ github.event.repository.name }}
+jobs:
+  build:
+    runs-on:
+      - Debian12
+    container:
+      image: ghcr.io/rdaultongt/csonar_github:gnucompilers
+      credentials:
+        username: ${{ secrets.DOCKER_USER }}
+        password: ${{ secrets.DOCKER_PASS }}
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v3
+      - name: Compile the Code
+        run: gcc -c demo.cpp
