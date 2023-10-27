@@ -35,3 +35,4 @@ jobs:
           -project /rob/"$PROJECT_NAME"
           "$PROJECT_NAME"
           "$CSONAR_HUB_URL"
+          gcc -c -I. demo.cpp
