@@ -9,16 +9,29 @@ on:
 env:
   PROJECT_NAME: ${{ github.event.repository.name }}
 jobs:
-  build:
+  analyze:
     runs-on:
       - Debian12
+    env:
+      CODESONAR: /opt/codesonar/codesonar/bin/codesonar
+      CSONAR_HUB_USER: "${{ secrets.CSONAR_HUB_USER }}"
+      CSONAR_HUB_PASS: "${{ secrets.CSONAR_HUB_PASS }}"
+      CSONAR_HUB_URL: "https://partnerdemo.codesonar.com"
     container:
-      image: ghcr.io/rdaultongt/csonar_github:gnucompilers
+      image: ghcr.io/rdaultongt/csonar_github:gnucompilers-codesonar7.4p1
       credentials:
-        username: ${{ secrets.DOCKER_USER }}
-        password: ${{ secrets.DOCKER_PASS }}
+         username: ${{ secrets.DOCKER_USER }}
+         password: ${{ secrets.DOCKER_PASS }}
     timeout-minutes: 360
     steps:
-      - uses: actions/checkout@v3
-      - name: Compile the Code
-        run: gcc -c demo.cpp
+     - uses: actions/checkout@v3
+     - name: Compile and Analyze the Code
+     - run: >
+          "$CODESONAR" analyze
+          -foreground
+          -auth password
+          -hubuser "$CSONAR_HUB_USER"
+          -hubpwfile "$CSONAR_HUB_PWFILE"
+          -project /rob/"$PROJECT_NAME"
+          "$PROJECT_NAME"
+          "$CSONAR_HUB_URL"
