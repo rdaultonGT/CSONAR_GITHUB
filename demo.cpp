@@ -6,6 +6,15 @@
 
 int robShared = 2;
 
+
+void funcX(int x)
+{ 
+	char *ptr = NULL:
+
+	if (x > 3) strcpy(ptr, "A Bug");
+
+}
+
 void NTAD()
 {
 	char *p, *p1;
