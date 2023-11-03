@@ -15,6 +15,14 @@ void funcX(int x)
 
 }
 
+void funcA(int x)
+{
+	char *ptr = NULL:
+
+	if (x > 3) strcpy(ptr, "A Bug");
+}
+
+
 void NTAD()
 {
 	char *p, *p1;
