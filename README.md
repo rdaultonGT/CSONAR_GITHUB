@@ -4,8 +4,8 @@ Sample workflow bug:
 
 void funcX(int x)<br />
 {<br />
-  char *ptr = NULL;<br />
+&emsp;char *ptr = NULL;<br />
   <br />
-  if (x > 3)<br />
-    strcpy(ptr, "A Bug");<br />
+&emsp;if (x > 3)<br />
+&emsp;&emsp;strcpy(ptr, "A Bug");<br />
 }
