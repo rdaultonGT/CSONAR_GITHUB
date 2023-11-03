@@ -12,6 +12,7 @@ jobs:
       CODESONAR: /opt/codesonar/codesonar/bin/codesonar
       CSONAR_HUB_USER: "${{ secrets.CSONAR_HUB_USER }}"
       CSONAR_HUB_PASS: "${{ secrets.CSONAR_HUB_PASS }}"
+      CSONAR_HUB_PWFILE: "codesonar.hub.pwfile"
       CSONAR_HUB_URL: "https://partnerdemo.codesonar.com"
     container:
       image: ghcr.io/rdaultongt/csonar_github:gnucompilers-codesonar7.4p0
@@ -21,6 +22,8 @@ jobs:
     timeout-minutes: 360
     steps:
      - uses: actions/checkout@v3
+     - name: Create Hub Credential File
+       run: echo "$CSONAR_HUB_PASS" > "$CSONAR_HUB_PWFILE"
      - name: Compile and Analyze the Code
        run: >
           "$CODESONAR" analyze
