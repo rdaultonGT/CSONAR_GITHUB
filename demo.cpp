@@ -17,7 +17,9 @@ void NTAD()
 		p1 = &p[0];
 }
 
+void funcX4(int x) { char *ptr = NULL:
 
+if (x > 3) strcpy(ptr, "A Bug"); }
 char * retMem()
 {
 	return ( char*)malloc(10);
