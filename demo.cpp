@@ -23,6 +23,10 @@ char * retMem()
 	return ( char*)malloc(10);
 }
 
+void funcXY(int x) { char *ptr = NULL:
+
+if (x > 3) strcpy(ptr, "A Bug"); }
+
 
 class Base
 {
