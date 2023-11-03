@@ -4,7 +4,7 @@
 #include "HEADERS/demo.h"
 #include <time.h>
 
-int robShared = 2;
+int robShared = 21;
 
 void NTAD()
 {
