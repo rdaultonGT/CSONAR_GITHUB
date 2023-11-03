@@ -14,7 +14,7 @@ jobs:
       CSONAR_HUB_PASS: "${{ secrets.CSONAR_HUB_PASS }}"
       CSONAR_HUB_URL: "https://partnerdemo.codesonar.com"
     container:
-      image: ghcr.io/rdaultongt/csonar_github:gnucompilers-codesonar7.4p1
+      image: ghcr.io/rdaultongt/csonar_github:gnucompilers-codesonar7.4p0
       credentials:
          username: ${{ secrets.DOCKER_USER }}
          password: ${{ secrets.DOCKER_PASS }}
@@ -28,7 +28,7 @@ jobs:
           -auth password
           -hubuser "$CSONAR_HUB_USER"
           -hubpwfile "$CSONAR_HUB_PWFILE"
-          -project /rob/"$PROJECT_NAME"
+          -project /ROB/"$PROJECT_NAME"
           "$PROJECT_NAME"
           "$CSONAR_HUB_URL"
           gcc -c -I. demo.cpp
