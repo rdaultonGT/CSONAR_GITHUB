@@ -1,11 +1,7 @@
 name: Codesonar GitHub Demo
 on:
   push:
-    branches:
-      - main
   pull_request:
-    branches:
-      - main
 env:
   PROJECT_NAME: ${{ github.event.repository.name }}
 jobs:
