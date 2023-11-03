@@ -17,15 +17,6 @@ void NTAD()
 		p1 = &p[0];
 }
 
-void funcX2(int x)
-{ 
-	char *ptr = NULL:
-
-	if (x > 3) strcpy(ptr, "A Bug");
-
-}
-
-
 
 char * retMem()
 {
