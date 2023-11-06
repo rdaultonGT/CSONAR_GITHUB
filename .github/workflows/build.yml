@@ -24,7 +24,8 @@ jobs:
      - name: Create Hub Credential File
        run: echo "$CSONAR_HUB_PASS" > "$CSONAR_HUB_PWFILE"
      - run: echo "branch pushed ':' $GITHUB_REF"
-     - run: git diff --name-only main RJD
+     - run: git branch
+     - run: git diff --name-only main $GITHUB_REF
      - name: Compile and Analyze the Code
        run: >
           "$CODESONAR" analyze
