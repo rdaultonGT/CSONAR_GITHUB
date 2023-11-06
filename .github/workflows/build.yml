@@ -24,17 +24,16 @@ jobs:
      - name: Create Hub Credential File
        run: echo "$CSONAR_HUB_PASS" > "$CSONAR_HUB_PWFILE"
      - run: git config --global --add safe.directory /__w/CSONAR_GITHUB/CSONAR_GITHUB
-     - run: echo "branch pushed ':' $GITHUB_REF"
-     - run: git branch -a
+    # get the set of source files changed for the branch pushed
      - run: git diff --name-only remotes/origin/main $GITHUB_REF
-     - name: Compile and Analyze the Code
-       run: >
-          "$CODESONAR" analyze
-          -foreground
-          -auth password
-          -hubuser "$CSONAR_HUB_USER"
-          -hubpwfile "$CSONAR_HUB_PWFILE"
-          -project /ROB/"$PROJECT_NAME"
-          "$PROJECT_NAME"
-          "$CSONAR_HUB_URL"
-          gcc -c -I. demo.cpp
+    # - name: Compile and Analyze the Code
+    #   run: >
+    #      "$CODESONAR" analyze
+    #      -foreground
+    #      -auth password
+    #      -hubuser "$CSONAR_HUB_USER"
+    #      -hubpwfile "$CSONAR_HUB_PWFILE"
+    #      -project /ROB/"$PROJECT_NAME"
+    #      "$PROJECT_NAME"
+    #      "$CSONAR_HUB_URL"
+    #      gcc -c -I. demo.cpp
