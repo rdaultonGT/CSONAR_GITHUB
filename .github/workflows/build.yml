@@ -26,7 +26,7 @@ jobs:
      - run: git config --global --add safe.directory /__w/CSONAR_GITHUB/CSONAR_GITHUB
      - run: echo "branch pushed ':' $GITHUB_REF"
      - run: git branch -a
-     - run: git diff --name-only main $GITHUB_REF
+     - run: git diff --name-only remotes/origin/main $GITHUB_REF
      - name: Compile and Analyze the Code
        run: >
           "$CODESONAR" analyze
