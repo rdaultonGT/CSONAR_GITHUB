@@ -25,7 +25,7 @@ jobs:
        run: echo "$CSONAR_HUB_PASS" > "$CSONAR_HUB_PWFILE"
      - run: git config --global --add safe.directory /__w/CSONAR_GITHUB/CSONAR_GITHUB
     # get the set of source files changed for the branch pushed
-     - run: echo "FILELIST = $(git diff --name-only remotes/origin/main $GITHUB_REF)" >> $GITHUB_ENV
+     - run: echo "FILELIST = $(git diff --name-only remotes/origin/main $GITHUB_REF | tr '\n' ' ')" >> $GITHUB_ENV
      - run: echo ${{ env.FILELIST }}
     # - name: Compile and Analyze the Code
     #   run: >
