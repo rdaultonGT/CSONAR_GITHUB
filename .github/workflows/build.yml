@@ -1,6 +1,6 @@
 name: Codesonar GitHub Demo
 on:
-  pull_request:
+  push:
 env:
   PROJECT_NAME: ${{ github.event.repository.name }}
 jobs:
