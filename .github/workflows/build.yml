@@ -23,18 +23,19 @@ jobs:
      - uses: actions/checkout@v3
      - name: Create Hub Credential File
        run: echo "$CSONAR_HUB_PASS" > "$CSONAR_HUB_PWFILE"
+    # next line required so we can access the main branch - it wll be called remotes/origin/main
      - run: git config --global --add safe.directory /__w/CSONAR_GITHUB/CSONAR_GITHUB
-    # get the set of source files changed for the branch pushed
+    # get the set of source files changed for the branch pushed as env var FILELIST
+    # tr needed to put all results from git diff onto one space separated line
      - run: echo "FILELIST = $(git diff --name-only remotes/origin/main $GITHUB_REF | tr '\n' ' ')" >> $GITHUB_ENV
-     - run: echo ${{ env.FILELIST }}
-    # - name: Compile and Analyze the Code
-    #   run: >
-    #      "$CODESONAR" analyze
-    #      -foreground
-    #      -auth password
-    #      -hubuser "$CSONAR_HUB_USER"
-    #      -hubpwfile "$CSONAR_HUB_PWFILE"
-    #      -project /ROB/"$PROJECT_NAME"
-    #      "$PROJECT_NAME"
-    #      "$CSONAR_HUB_URL"
-    #      gcc -c -I. demo.cpp
+     - name: Compile and Analyze the Code changes only
+       run: >
+          "$CODESONAR" analyze
+          -foreground
+          -auth password
+          -hubuser "$CSONAR_HUB_USER"
+          -hubpwfile "$CSONAR_HUB_PWFILE"
+          -project /ROB/"$PROJECT_NAME"
+          "$PROJECT_NAME"
+          "$CSONAR_HUB_URL"
+          gcc -c -I. ${{ env.FILELIST }}
