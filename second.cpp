@@ -19,7 +19,8 @@ void goAndUse(char *x, char *y, int t)
 	}
 }
 
-
+ int r = 1;
+ 
 void memoryLeak()
 {
 	// null pointer dereference - malloc may fail
