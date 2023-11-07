@@ -29,6 +29,7 @@ jobs:
     # tr needed to put all results from git diff onto one space separated line
      - run: echo $GITHUB_REF
      - run: git branch -a
+     - run: git diff --name-only remotes/origin/main $GITHUB_REF | tr '\n' ' '
      - run: echo "FILELIST = $(git diff --name-only remotes/origin/main $GITHUB_REF | tr '\n' ' ')" >> $GITHUB_ENV
      - run: echo FILELIST = $FILELIST
   #   - name: Compile and Analyze the Code changes only
