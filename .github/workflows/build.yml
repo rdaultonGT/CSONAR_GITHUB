@@ -60,7 +60,7 @@ jobs:
      - name: Cleanup Credential File
        run: shred -u "$CSONAR_HUB_PWFILE"
      - name: Push Analysis Results to GitHub
-       uses: github/codeql-action/upload-sarif@v1
+       uses: github/codeql-action/upload-sarif@v2
        with:
           sarif_file: warnings.sarif
     # - name: Push Summary Report
