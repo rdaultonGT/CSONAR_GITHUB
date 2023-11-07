@@ -6,6 +6,8 @@
 
 int robShared = 3;
 
+extern void memoryleak();
+
 void NTAD()
 {
 	char *p, *p1;
