@@ -322,7 +322,7 @@ int main(int argc, char **argv)
 	
 	std::cout << "hello" << std::endl;
 
-	memoryLeak();
+	memoryleak();
 
 	newError();	
 
@@ -343,7 +343,7 @@ int main(int argc, char **argv)
 	basePtr->setField(basePtr->getValue());
 	basePtr1->setField(basePtr1->getValue());
 	
-	memoryLeak();
+	memoryleak();
 	
 	retMem();
 	
