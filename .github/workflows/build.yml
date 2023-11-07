@@ -33,7 +33,7 @@ jobs:
      - run: git branch -a
      - run: git diff --name-only remotes/origin/main $GITHUB_REF | tr '\n' ' '
     # run:  echo "PARALLEL=`nproc`" >> $GITHUB_ENV
-     - run: echo "FILELIST='git diff --name-only remotes/origin/main $GITHUB_REF | tr '\n' " " '" >> $GITHUB_ENV
+     - run: echo "FILELIST=`git diff --name-only remotes/origin/main $GITHUB_REF | tr '\n' ' ' `" >> $GITHUB_ENV
      - run: echo FILELIST = $FILELIST
   #   - name: Compile and Analyze the Code changes only
   #     run: >
