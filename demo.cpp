@@ -6,7 +6,7 @@
 
 int robShared = 3;
 
-extern void memoryleak();
+extern void memoryLeak();
 
 void NTAD()
 {
@@ -322,7 +322,7 @@ int main(int argc, char **argv)
 	
 	std::cout << "hello" << std::endl;
 
-	memoryleak();
+	memoryLeak();
 
 	newError();	
 
@@ -343,7 +343,7 @@ int main(int argc, char **argv)
 	basePtr->setField(basePtr->getValue());
 	basePtr1->setField(basePtr1->getValue());
 	
-	memoryleak();
+	memoryLeak();
 	
 	retMem();
 	
