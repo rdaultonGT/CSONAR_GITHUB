@@ -1,7 +1,7 @@
 name: Codesonar GitHub Demo
 on:
   push:
-    paths-ignore: build.yml
+    paths-ignore: 'build.yml'
 env:
   PROJECT_NAME: ${{ github.event.repository.name }}
 jobs:
