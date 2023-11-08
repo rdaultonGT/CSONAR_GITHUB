@@ -33,31 +33,9 @@ jobs:
     # get the set of source files changed for the branch pushed as env var FILELIST
     # tr needed to put all results from git diff onto one space separated line
      - run: echo $GITHUB_REF
-     - run: git diff-tree --no-commit-id --name-only -r ${{ github.sha }}
-     - run: git branch -a
-     - run: git branch -D -f remotes/origin/branch1
-     - run: git branch -D -f   remotes/origin/caroline
-     - run: git branch -D -f   remotes/origin/james
-     - run: git branch -D -f   remotes/origin/monday
-     - run: git branch -D -f   remotes/origin/rb
-     - run: git branch -D -f   remotes/origin/rob
-     - run: git branch -D -f   remotes/origin/robd
-     - run: git branch -D -f   remotes/origin/sunday
-     - run: git branch -D -f   remotes/origin/test1
-     - run: git branch -D -f   remotes/origin/test2
-     - run: git branch -D -f   remotes/origin/test3
-     - run: git branch -D -f   remotes/origin/test4
-     - run: git branch -D -f  remotes/origin/test5
-     - run: git branch -D -f   remotes/origin/test6
-     - run: git branch -D -f   remotes/origin/testB
-     - run: git branch -D -f   remotes/origin/tuesday
-     - run: git branch -D -f   remotes/origin/tuesday1
-     - run: git branch -D -f   remotes/origin/tuesday2
-     - run: git branch -D -f   remotes/origin/tuesday3
-     - run: git branch -D -f   remotes/origin/wednesday
      - run: git branch -a
      - run: git diff --name-only remotes/origin/main $GITHUB_REF | tr '\n' ' '
-   #  - run: echo "FILELIST=`git diff --name-only remotes/origin/main $GITHUB_REF | grep -v yml | tr '\n' ' ' `" >> $GITHUB_ENV
+     - run: echo "FILELIST=`git diff --name-only remotes/origin/main $GITHUB_REF | grep -v yml | tr '\n' ' ' `" >> $GITHUB_ENV
      - run: echo FILELIST is $FILELIST
      - name: Compile and Analyze the Code changes only
        run: >
