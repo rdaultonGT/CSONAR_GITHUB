@@ -1,8 +1,6 @@
 name: Codesonar GitHub Demo
 on:
   push:
-  # dont rerun the workflow for alterations to the workflow script
-    branches-ignore: main
 env:
   PROJECT_NAME: ${{ github.event.repository.name }}
 jobs:
