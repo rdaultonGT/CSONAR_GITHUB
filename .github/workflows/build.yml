@@ -32,9 +32,9 @@ jobs:
      - run: git config --global --add safe.directory /__w/CSONAR_GITHUB/CSONAR_GITHUB
     # get the set of source files changed for the branch pushed as env var FILELIST
     # tr needed to put all results from git diff onto one space separated line
-    # - run: echo $GITHUB_REF
-    # - run: git branch -a
-    # - run: git diff --name-only remotes/origin/main $GITHUB_REF | tr '\n' ' '
+     - run: echo $GITHUB_REF
+     - run: git branch -a
+     - run: git diff --name-only remotes/origin/main $GITHUB_REF | tr '\n' ' '
      - run: echo "FILELIST=`git diff --name-only remotes/origin/main $GITHUB_REF | grep -v yml | tr '\n' ' ' `" >> $GITHUB_ENV
      - run: echo FILELIST is $FILELIST
      - name: Compile and Analyze the Code changes only
