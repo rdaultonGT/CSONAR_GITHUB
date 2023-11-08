@@ -4,7 +4,7 @@
 #include "HEADERS/demo.h"
 #include <time.h>
 
-int robShared = 3;
+int robShared = 2;
 
 extern void memoryLeak();
 
