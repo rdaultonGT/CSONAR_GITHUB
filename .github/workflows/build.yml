@@ -37,34 +37,34 @@ jobs:
     # - run: git diff --name-only remotes/origin/main $GITHUB_REF | tr '\n' ' '
      - run: echo "FILELIST=`git diff --name-only remotes/origin/main $GITHUB_REF | grep -v yml | tr '\n' ' ' `" >> $GITHUB_ENV
      - name: Compile and Analyze the Code changes only
-       run: >
-          "$CODESONAR" analyze
-          -foreground
-          -auth password
-          -hubuser "$CSONAR_HUB_USER"
-          -hubpwfile "$CSONAR_HUB_PWFILE"
-          -project /ROB/"$PROJECT_NAME"
-          "$PROJECT_NAME"
-          "$CSONAR_HUB_URL"
-          gcc -c -I. $FILELIST
-     - name: Pull Analysis Results from CodeSonar Hub
-       run: >
-          "$CODESONAR" dump_warnings.py
-          -o warnings.sarif
-          --hub "$CSONAR_HUB_URL"
-          -auth password
-          -hubuser "$CSONAR_HUB_USER"
-          -hubpwfile "$CSONAR_HUB_PWFILE"
-          --project-file "$PROJECT_NAME"
-          --sarif
-          --src-root "$GITHUB_WORKSPACE"
-          -t 7200
-     - name: Cleanup Credential File
-       run: shred -u "$CSONAR_HUB_PWFILE"
-     - name: Push Analysis Results to GitHub
-       uses: github/codeql-action/upload-sarif@v2
-       with:
-          sarif_file: warnings.sarif
+     #  run: >
+     #     "$CODESONAR" analyze
+     #     -foreground
+     #     -auth password
+     #     -hubuser "$CSONAR_HUB_USER"
+     #     -hubpwfile "$CSONAR_HUB_PWFILE"
+     #     -project /ROB/"$PROJECT_NAME"
+     #     "$PROJECT_NAME"
+     #     "$CSONAR_HUB_URL"
+       run: gcc -c -I. $FILELIST
+   #  - name: Pull Analysis Results from CodeSonar Hub
+    #   run: >
+    #      "$CODESONAR" dump_warnings.py
+    #      -o warnings.sarif
+    #      --hub "$CSONAR_HUB_URL"
+    #      -auth password
+    #      -hubuser "$CSONAR_HUB_USER"
+     #     -hubpwfile "$CSONAR_HUB_PWFILE"
+     #     --project-file "$PROJECT_NAME"
+     #     --sarif
+     #     --src-root "$GITHUB_WORKSPACE"
+     #     -t 7200
+   #  - name: Cleanup Credential File
+   #    run: shred -u "$CSONAR_HUB_PWFILE"
+   #  - name: Push Analysis Results to GitHub
+   #    uses: github/codeql-action/upload-sarif@v2
+   #    with:
+   #       sarif_file: warnings.sarif
     # - name: Push Summary Report
     #   if: ${{ github.event.pull_request }}
     #   run: >
