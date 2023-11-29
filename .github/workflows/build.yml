@@ -18,7 +18,7 @@ jobs:
       CSPYTHON: /opt/codesonar/codesonar/bin/cspython
       CSO_GITHUB: /opt/codesonar-github
       GITHUB_CAFILE: ".github/github.cert.pem"
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
       PULL_REQUEST_ID: ${{ github.event.pull_request.number }}
       
     container:
@@ -81,4 +81,4 @@ jobs:
           --cafile "$GITHUB_CAFILE"
           "$GITHUB_REPOSITORY"
           "$PULL_REQUEST_ID"
-          GITHUB_TOKEN
+          GH_TOKEN
