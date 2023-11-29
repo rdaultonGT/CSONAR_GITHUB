@@ -1,6 +1,6 @@
 name: Codesonar GitHub Demo
 on:
-  push:
+  pull_request:
 env:
   PROJECT_NAME: ${{ github.event.repository.name }}
 jobs:
@@ -27,15 +27,15 @@ jobs:
      - name: Create Hub Credential File
        run: echo "$CSONAR_HUB_PASS" > "$CSONAR_HUB_PWFILE"
     # next line required so we can access the main branch - it wll be called remotes/origin/main
-     - run: git config --global --add safe.directory /__w/CSONAR_GITHUB/CSONAR_GITHUB
+    # - run: git config --global --add safe.directory /__w/CSONAR_GITHUB/CSONAR_GITHUB
     # get the set of source files changed for the branch pushed as env var FILELIST
     # tr needed to put all results from git diff onto one space separated line
-     - run: echo $GITHUB_REF
-     - run: git branch -a
-     - run: git diff --name-only remotes/origin/main $GITHUB_REF | tr '\n' ' '
-     - run: echo "FILELIST=`git diff --name-only remotes/origin/main $GITHUB_REF | grep -v yml | tr '\n' ' ' `" >> $GITHUB_ENV
-     - run: echo FILELIST is $FILELIST
-     - name: Compile and Analyze the Code changes only
+    # - run: echo $GITHUB_REF
+    # - run: git branch -a
+    # - run: git diff --name-only remotes/origin/main $GITHUB_REF | tr '\n' ' '
+    # - run: echo "FILELIST=`git diff --name-only remotes/origin/main $GITHUB_REF | grep -v yml | tr '\n' ' ' `" >> $GITHUB_ENV
+    # - run: echo FILELIST is $FILELIST
+    # - name: Compile and Analyze the Code changes only
        run: >
           "$CODESONAR" analyze
           -foreground
@@ -45,7 +45,7 @@ jobs:
           -project /ROB/"$PROJECT_NAME"
           "$PROJECT_NAME"
           "$CSONAR_HUB_URL"
-          gcc -c -I. $FILELIST
+          gcc -c -I. demo.cpp second.cpp
      - name: Pull Analysis Results from CodeSonar Hub
        run: >
           "$CODESONAR" dump_warnings.py
