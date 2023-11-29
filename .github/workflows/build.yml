@@ -16,6 +16,11 @@ jobs:
       CSONAR_HUB_PWFILE: "codesonar.hub.pwfile"
       CSONAR_HUB_URL: "https://partnerdemo.codesonar.com"
       CSPYTHON: /opt/codesonar/codesonar/bin/cspython
+      CSO_GITHUB: /opt/codesonar-github
+      GITHUB_CAFILE: ".github/github.cert.pem"
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      PULL_REQUEST_ID: ${{ github.event.pull_request.number }}
+      
     container:
       image: ghcr.io/rdaultongt/csonar_github:gnucompilers-codesonar7.4p0
       credentials:
