@@ -35,7 +35,7 @@ jobs:
     # - run: git diff --name-only remotes/origin/main $GITHUB_REF | tr '\n' ' '
     # - run: echo "FILELIST=`git diff --name-only remotes/origin/main $GITHUB_REF | grep -v yml | tr '\n' ' ' `" >> $GITHUB_ENV
     # - run: echo FILELIST is $FILELIST
-    # - name: Compile and Analyze the Code changes only
+     - name: Compile and Analyze the Code changes only
        run: >
           "$CODESONAR" analyze
           -foreground
