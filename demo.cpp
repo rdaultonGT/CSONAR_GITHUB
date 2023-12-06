@@ -60,6 +60,14 @@ class Derived : public Base
 		
 };
 
+void anotherBug(int a)
+{
+	char *ptr = NULL;
+
+	if (a == 5)
+		strcpy(ptr, "BUG");
+}
+
 class _X
 {
 	public:
