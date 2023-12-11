@@ -30,6 +30,17 @@ void memoryLeak()
 	strcpy(ptr, "Scirs Ltd");
 	
 	goAndUse(ptr, ptr, 10);	
+
+	{
+		char z = 0;
+		if (z == 0)
+		{
+			char *p = NULL;
+
+			strcpy(p, "ROB");
+
+		}
+	}
 }
 		
 
