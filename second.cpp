@@ -32,4 +32,11 @@ void memoryLeak()
 	goAndUse(ptr, ptr, 10);	
 }
 		
+void funcX(int x)
+{
+ char *ptr = NULL;
 
+ if (x > 3)
+	if (ptr == NULL)
+	  strcpy(ptr, "A Bug");
+}
