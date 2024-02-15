@@ -20,7 +20,14 @@ void goAndUse(char *x, char *y, int t)
 }
 
  int r = 12  - 2;
+
  
+void divbyzero()
+{
+	printf("%d\n", 10 / r - 10);
+}
+
+
 void memoryLeak()
 {
 	// null pointer dereference - malloc may fail
