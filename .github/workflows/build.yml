@@ -16,6 +16,7 @@ jobs:
       DETEKT: /opt/win32-fetcher/detekt-cli/bin/detekt-cli
       CSONAR_HUB_USER: "${{ secrets.CSONAR_HUB_USER }}"
       CSONAR_HUB_PASS: "${{ secrets.CSONAR_HUB_PASS }}"
+      TRUSTED_CERT: "${{ secrets.TRUSTED_CERT }}"
       HUB_CERT: "${{ secrets.ROB_HUB_CERT }}"
       HUB_KEY: "${{ secrets.ROB_HUB_KEY }}"
       CSONAR_HUB_PWFILE: "codesonar.hub.pwfile"
@@ -40,6 +41,9 @@ jobs:
           echo "$CSONAR_HUB_PASS" > "$CSONAR_HUB_PWFILE"
           echo "$HUB_CERT" > hubCert
           echo "$HUB_KEY" > hubKey
+          mkdir /github/home/.csurf
+          mkdir /github/home/.csurf/codesonar
+          echo "$TRUSTED_CERT" > /github/home/.csurf/codesonar/trusted_certs.pem
     # next line required so we can access the main branch - it wll be called remotes/origin/main
     # - run: git config --global --add safe.directory /__w/CSONAR_GITHUB/CSONAR_GITHUB
     # get the set of source files changed for the branch pushed as env var FILELIST
