@@ -68,7 +68,7 @@ jobs:
            "$DETEKT" -i OKHTTP -r sarif:okhttp.sarif || true # "true" required to avoid detekt failing the pipeline when SAST errors detected
      - run: >
            "$CODESONAR" analyze -auth certificate -hubcert hubCert -hubKey hubKey -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" -foreground
-           "$CODESONAR" import_sarif.py okhttp.sarif -analyzer detekt -include-sources OKHTTP/**/*.kt
+           "$CODESONAR" import_sarif.py okhttp.sarif -analyzer detekt -include-sources "OKHTTP/**/*.kt"
      - name: Pull Analysis Results from CodeSonar Hub
        run: >
           "$CODESONAR" dump_warnings.py
