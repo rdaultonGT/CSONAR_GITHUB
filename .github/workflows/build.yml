@@ -13,7 +13,7 @@ jobs:
       CODESONAR: /opt/codesonar/codesonar/bin/codesonar
       # JAVA_HOME needed to execute Kotlin Detekt tool
       JAVA_HOME: /opt/codesonar/win32-fetcher/jdk-11-x86_64-pc-linux-gnu
-      DETEKT: /opt/win32-fetcher/detekt-cli/bin/detekt-cli
+      DETEKT: /opt/codesonar/win32-fetcher/detekt-cli/bin/detekt-cli
       CSONAR_HUB_USER: "${{ secrets.CSONAR_HUB_USER }}"
       CSONAR_HUB_PASS: "${{ secrets.CSONAR_HUB_PASS }}"
       TRUSTED_CERT: "${{ secrets.TRUSTED_CERT }}"
