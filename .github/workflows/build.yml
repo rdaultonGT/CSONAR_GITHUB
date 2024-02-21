@@ -55,8 +55,7 @@ jobs:
     # - run: echo FILELIST is $FILELIST
      - name: build C/C++
        run: >
-          "$CODESONAR" analyze
-          -foreground
+          "$CODESONAR" build
           -auth certificate
           -hubcert hubCert
           -hubkey hubKey
@@ -64,11 +63,12 @@ jobs:
           "$PROJECT_NAME"
           "$CSONAR_HUB_URL"
           gcc -c -I. demo.cpp second.cpp
-    # - name: analyze Kotlin
-    # - run: |
-    #      "$DETEKT" -i KOTLIN -r sarif:detekt_results.sarif
-    #      "$CODESONAR" build "$PROJECT_NAME" "$CSONAR_HUB_URL" "$CODESONAR" import_sarif.py 
-          
+     - name: analyze the whole codebase + Kotlin OKHTTP sources
+       run: >
+           "$DETEKT" -i OKHTTP -r sarif:okhttp.sarif
+     - run: >
+           "$CODESONAR" analyze -auth certificate -hubcert hubCert -hubKey hubKey -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" -foreground
+           "$CODESONAR" import_sarif.py okhttp.sarif -analyzer detekt -include-sources OKHTTP/**/*.kt
      - name: Pull Analysis Results from CodeSonar Hub
        run: >
           "$CODESONAR" dump_warnings.py
