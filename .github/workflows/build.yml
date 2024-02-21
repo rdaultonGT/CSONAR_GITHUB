@@ -18,7 +18,7 @@ jobs:
       CSONAR_HUB_PASS: "${{ secrets.CSONAR_HUB_PASS }}"
       CSONAR_HUB_PWFILE: "codesonar.hub.pwfile"
       #CSONAR_HUB_URL: "https://partnerdemo.codesonar.com"
-      CSONAR_HUB_URL: "http://127.0.0.1:7340"
+      CSONAR_HUB_URL: "http//duck.dyndns.org:7340"
       CSPYTHON: /opt/codesonar/codesonar/bin/cspython
       CSO_GITHUB: /opt/codesonar-github
       GITHUB_CAFILE: ".github/github.cert.pem"
