@@ -11,6 +11,9 @@ jobs:
       - Debian12
     env:
       CODESONAR: /opt/codesonar/codesonar/bin/codesonar
+      # JAVA_HOME needed to execute Kotlin Detekt tool
+      JAVA_HOME: /opt/codesonar/win32-fetcher/jdk-11-x86_64-pc-linux-gnu
+      DETEKT: /opt/win32-fetcher/detekt-cli/bin/detekt-cli
       CSONAR_HUB_USER: "${{ secrets.CSONAR_HUB_USER }}"
       CSONAR_HUB_PASS: "${{ secrets.CSONAR_HUB_PASS }}"
       CSONAR_HUB_PWFILE: "codesonar.hub.pwfile"
@@ -40,7 +43,7 @@ jobs:
     # - run: git diff --name-only remotes/origin/main $GITHUB_REF | tr '\n' ' '
     # - run: echo "FILELIST=`git diff --name-only remotes/origin/main $GITHUB_REF | grep -v yml | tr '\n' ' ' `" >> $GITHUB_ENV
     # - run: echo FILELIST is $FILELIST
-     - name: Compile and Analyze the Code changes only
+     - name: build C/C++
        run: >
           "$CODESONAR" analyze
           -foreground
@@ -51,6 +54,11 @@ jobs:
           "$PROJECT_NAME"
           "$CSONAR_HUB_URL"
           gcc -c -I. demo.cpp second.cpp
+    # - name: analyze Kotlin
+    # - run: |
+    #      "$DETEKT" -i KOTLIN -r sarif:detekt_results.sarif
+    #      "$CODESONAR" build "$PROJECT_NAME" "$CSONAR_HUB_URL" "$CODESONAR" import_sarif.py 
+          
      - name: Pull Analysis Results from CodeSonar Hub
        run: >
           "$CODESONAR" dump_warnings.py
