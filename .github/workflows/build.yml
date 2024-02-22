@@ -66,7 +66,8 @@ jobs:
           gcc -c -I. demo.cpp second.cpp
     # TODO: add Python, Java analyses
      - name: analyze NodeGoat JS sources
-       run: >
+       run: |
+            eslint --init
             eslint --no-inline-config -f @microsoft/eslint-formatter-sarif -o nodegoat.sarif NODEGOAT || true # "true" required to avoid eslint failing the pipeline when SAST errors detected
      - run: >
            "$CODESONAR" build -auth certificate -hubcert hubCert -hubKey hubKey -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" -foreground
