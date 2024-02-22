@@ -72,11 +72,11 @@ jobs:
             pwd
             npm install eslint
             npm install @microsoft/eslint-formatter-sarif
-            eslint --no-inline-config -c ./node_modules/@humanwhocodes/object-schema/.eslintrc.js -f @microsoft/eslint-formatter-sarif -o eslint.sarif app || true
+            eslint --no-inline-config -c ./node_modules/@humanwhocodes/object-schema/.eslintrc.js -f @microsoft/eslint-formatter-sarif -o nodegoat.sarif app || true
             cd ..
      - run: >
            "$CODESONAR" build -auth certificate -hubcert hubCert -hubKey hubKey -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" -foreground
-           "$CODESONAR" import_sarif.py nodegoat.sarif -analyzer eslint -include-sources "NODEGOAT/**/*.js"
+           "$CODESONAR" import_sarif.py NODEGOAT/nodegoat.sarif -analyzer eslint -include-sources "NODEGOAT/app/**/*.js"
      - name: analyze the whole codebase + Kotlin OKHTTP sources
        run: >
            "$DETEKT" -i OKHTTP -r sarif:okhttp.sarif || true 
