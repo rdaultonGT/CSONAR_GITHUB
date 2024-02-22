@@ -68,6 +68,8 @@ jobs:
      - name: analyze NodeGoat JS sources
        run: |
             cd NODEGOAT
+            ls
+            pwd
             npm install eslint
             npm install @microsoft/eslint-formatter-sarif
             eslint --no-inline-config -c ./node_modules/@humanwhocodes/object-schema/.eslintrc.js -f @microsoft/eslint-formatter-sarif -o eslint.sarif app || true
