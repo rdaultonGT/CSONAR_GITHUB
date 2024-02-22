@@ -68,7 +68,7 @@ jobs:
      - name: analyze NodeGoat JS sources
        run: |
             eslint --init
-            eslint --no-inline-config -f @microsoft/eslint-formatter-sarif -o nodegoat.sarif NODEGOAT || true # "true" required to avoid eslint failing the pipeline when SAST errors detected
+            npx eslint --no-inline-config -f @microsoft/eslint-formatter-sarif -o nodegoat.sarif NODEGOAT || true # "true" required to avoid eslint failing the pipeline when SAST errors detected
      - run: >
            "$CODESONAR" build -auth certificate -hubcert hubCert -hubKey hubKey -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" -foreground
            "$CODESONAR" import_sarif.py nodegoat.sarif -analyzer eslint -include-sources "NODEGOAT/**/*.js"
