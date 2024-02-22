@@ -64,10 +64,16 @@ jobs:
           "$PROJECT_NAME"
           "$CSONAR_HUB_URL"
           gcc -c -I. demo.cpp second.cpp
-    # TODO: add Python, JS, Java analyses
+    # TODO: add Python, Java analyses
+     - name: analyze NodeGoat JS sources
+       run: >
+            eslint --no-inline-config -f @microsoft/eslint-formatter-sarif -o nodegoat.sarif NODEGOAT || true # "true" required to avoid eslint failing the pipeline when SAST errors detected
+     - run: >
+           "$CODESONAR" build -auth certificate -hubcert hubCert -hubKey hubKey -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" -foreground
+           "$CODESONAR" import_sarif.py nodegoat.sarif -analyzer eslint -include-sources "NODEGOAT/**/*.js"
      - name: analyze the whole codebase + Kotlin OKHTTP sources
        run: >
-           "$DETEKT" -i OKHTTP -r sarif:okhttp.sarif || true # "true" required to avoid detekt failing the pipeline when SAST errors detected
+           "$DETEKT" -i OKHTTP -r sarif:okhttp.sarif || true 
      - run: >
            "$CODESONAR" analyze -auth certificate -hubcert hubCert -hubKey hubKey -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" -foreground
            "$CODESONAR" import_sarif.py okhttp.sarif -analyzer detekt -include-sources "OKHTTP/**/*.kt"
