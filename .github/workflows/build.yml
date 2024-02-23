@@ -72,7 +72,9 @@ jobs:
        run: |
             cd JAVA
             "$JAVAC" -cp "./javax.servlet.jar" MyServletDemo.java
+            ls
      - run: >
+            pwd
             "$CODESONAR" build -auth certificate -hubcert hubCert -hubKey hubKey -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL"
             -preset java_security "$CS_JAVA_SCAN" -include-artifacts ./MyServletDemo.class -include-sources "*.java" -include-sourceless-artifacts "./javax.servlet.jar"
      - run: cd ..
