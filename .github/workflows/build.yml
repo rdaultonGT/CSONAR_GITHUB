@@ -67,7 +67,7 @@ jobs:
           "$PROJECT_NAME"
           "$CSONAR_HUB_URL"
           gcc -c -I. demo.cpp second.cpp
-    # TODO: add Python, Java analyses
+    # TODO: add Python Analysis
      - name: Build and Analyze Java
        run: |
             cd JAVA
