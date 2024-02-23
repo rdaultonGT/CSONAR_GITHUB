@@ -13,6 +13,9 @@ jobs:
       CODESONAR: /opt/codesonar/codesonar/bin/codesonar
       # JAVA_HOME needed to execute Kotlin Detekt tool
       JAVA_HOME: /opt/codesonar/win32-fetcher/jdk-11-x86_64-pc-linux-gnu
+      JAVAC: /opt/codesonar/win32-fetcher/jdk-11-x86_64-pc-linux-gnu/bin/javac
+      JAVA: /opt/codesonar/win32-fetcher/jdk-11-x86_64-pc-linux-gnu/bin/java
+      CS_JAVA_SCAN: /opt/codesonar/codesonar/bin/cs-java-scan
       DETEKT: /opt/codesonar/win32-fetcher/detekt-cli/bin/detekt-cli
       CSONAR_HUB_USER: "${{ secrets.CSONAR_HUB_USER }}"
       CSONAR_HUB_PASS: "${{ secrets.CSONAR_HUB_PASS }}"
@@ -65,6 +68,14 @@ jobs:
           "$CSONAR_HUB_URL"
           gcc -c -I. demo.cpp second.cpp
     # TODO: add Python, Java analyses
+     - name: Build and Analyze Java
+       run: |
+            cd JAVA
+            "$JAVAC" -cp "./javax.servlet.jar" MyServletDemo.java
+     - run: >
+            "$CODESONAR" build -auth certificate -hubcert hubCert -hubKey hubKey -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL"
+                -preset java_security "$CS_JAVA_SCAN" -include-artifacts ./MyServletDemo.class -include-sources "*.java" -include-sourceless-artifacts "./javax.servlet.jar"
+     - run: cd ..
      - name: analyze NodeGoat JS sources
        run: |
             cd NODEGOAT
@@ -74,13 +85,13 @@ jobs:
             cd ..
      - run: >
            "$CODESONAR" build -auth certificate -hubcert hubCert -hubKey hubKey -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL"
-           "$CODESONAR" import_sarif.py NODEGOAT/nodegoat.sarif -analyzer eslint -include-sources "NODEGOAT/app/**/*.js"
+               "$CODESONAR" import_sarif.py NODEGOAT/nodegoat.sarif -analyzer eslint -include-sources "NODEGOAT/app/**/*.js"
      - name: analyze the whole codebase + Kotlin OKHTTP sources
        run: >
            "$DETEKT" -i OKHTTP -r sarif:okhttp.sarif || true 
      - run: >
            "$CODESONAR" analyze -auth certificate -hubcert hubCert -hubKey hubKey -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" -foreground
-           "$CODESONAR" import_sarif.py okhttp.sarif -analyzer detekt -include-sources "OKHTTP/**/*.kt"
+               "$CODESONAR" import_sarif.py okhttp.sarif -analyzer detekt -include-sources "OKHTTP/**/*.kt"
      - name: Pull Analysis Results from CodeSonar Hub
        run: >
           "$CODESONAR" dump_warnings.py
