@@ -70,11 +70,9 @@ jobs:
     # TODO: add Python Analysis
      - name: Build and Analyze Java
        run: |
-            cd JAVA
-            "$JAVAC" -cp "./javax.servlet.jar" MyServletDemo.java
+            "$JAVAC" -cp "JAVA/javax.servlet.jar" JAVA/MyServletDemo.java
             ls
-            "$CODESONAR" build -auth certificate -hubcert hubCert -hubKey hubKey -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" -preset java_security "$CS_JAVA_SCAN" -include-artifacts ./MyServletDemo.class -include-sources "*.java" -include-sourceless-artifacts "./javax.servlet.jar"
-            cd ..
+            "$CODESONAR" build -auth certificate -hubcert hubCert -hubKey hubKey -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" -preset java_security "$CS_JAVA_SCAN" -include-artifacts JAVA/MyServletDemo.class -include-sources "JAVA/*.java" -include-sourceless-artifacts "JAVA/javax.servlet.jar"
      - name: analyze NodeGoat JS sources
        run: |
             cd NODEGOAT
@@ -82,15 +80,11 @@ jobs:
             npm install @microsoft/eslint-formatter-sarif
             eslint --no-inline-config -c ./node_modules/@humanwhocodes/object-schema/.eslintrc.js -f @microsoft/eslint-formatter-sarif -o nodegoat.sarif app || true
             cd ..
-     - run: >
-           "$CODESONAR" build -auth certificate -hubcert hubCert -hubKey hubKey -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL"
-           "$CODESONAR" import_sarif.py NODEGOAT/nodegoat.sarif -analyzer eslint -include-sources "NODEGOAT/app/**/*.js"
+            "$CODESONAR" build -auth certificate -hubcert hubCert -hubKey hubKey -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" "$CODESONAR" import_sarif.py NODEGOAT/nodegoat.sarif -analyzer eslint -include-sources "NODEGOAT/app/**/*.js"
      - name: analyze the whole codebase + Kotlin OKHTTP sources
-       run: >
+       run: |
            "$DETEKT" -i OKHTTP -r sarif:okhttp.sarif || true 
-     - run: >
-           "$CODESONAR" analyze -auth certificate -hubcert hubCert -hubKey hubKey -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" -foreground
-           "$CODESONAR" import_sarif.py okhttp.sarif -analyzer detekt -include-sources "OKHTTP/**/*.kt"
+           "$CODESONAR" analyze -auth certificate -hubcert hubCert -hubKey hubKey -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" -foreground "$CODESONAR" import_sarif.py okhttp.sarif -analyzer detekt -include-sources "OKHTTP/**/*.kt"
      - name: Pull Analysis Results from CodeSonar Hub
        run: >
           "$CODESONAR" dump_warnings.py
