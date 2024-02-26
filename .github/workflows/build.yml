@@ -75,7 +75,7 @@ jobs:
        run: |
             "$JAVAC" -cp "JAVA/javax.servlet.jar" JAVA/MyServletDemo.java
             ls
-            "$CODESONAR" build -auth certificate -hubcert hubCert -hubKey hubKey -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" -preset java_security "$CS_JAVA_SCAN" -include-artifacts JAVA/MyServletDemo.class -include-sources "JAVA/*.java" -include-sourceless-artifacts "JAVA/javax.servlet.jar"
+            "$CODESONAR" build -auth certificate -hubcert hubCert -hubKey hubKey -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" -preset java_security "$CS_JAVA_SCAN" -include-artifacts JAVA/MyServletDemo.class -include-sources "JAVA/*.java"
      - name: analyze NodeGoat JS sources
        run: |
             cd NODEGOAT
