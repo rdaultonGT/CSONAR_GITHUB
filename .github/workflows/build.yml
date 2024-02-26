@@ -8,7 +8,10 @@ jobs:
   # perm required to solve "Resource not accessible by integration" warning when trying to upload SARIF
     permissions: write-all
     runs-on:
-      - Debian12
+    # Debian 12 is my laptop
+    #  - Debian12
+    # MrHermeling is Marks basement machine
+     - MrHermeling
     env:
       CODESONAR: /opt/codesonar/codesonar/bin/codesonar
       # JAVA_HOME needed to execute Kotlin Detekt tool
