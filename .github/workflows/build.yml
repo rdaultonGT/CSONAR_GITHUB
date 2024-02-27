@@ -45,10 +45,6 @@ jobs:
      - uses: actions/checkout@v3
      - name: Create Hub Credential File
        run: |
-          echo RUNNING WHOAMI
-          whoami
-          echo ls /opt/codesonar/codesonar/bin
-          ls /opt/codesonar/codesonar/bin
           echo "$CSONAR_HUB_PASS" > "$CSONAR_HUB_PWFILE"
           echo "$HUB_CERT" > hubCert
           echo "$HUB_KEY" > hubKey
@@ -77,8 +73,7 @@ jobs:
           gcc -c -I. demo.cpp second.cpp
      - name: Analyze Python 
        run: |
-              export PATH=$PATH;/opt/codesonar/codesonar/bin
-              "$CODESONAR"
+              export PATH=$PATH:/opt/codesonar/codesonar/bin
               "$CODESONAR" build -auth certificate -hubcert hubCert -hubKey hubKey -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" "$CODESONAR" python_scan.py "PYTHON/*.py" --sarif-output python.sarif
     # - name: Build and Analyze Java
     #   run: |
