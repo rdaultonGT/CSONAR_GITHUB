@@ -78,8 +78,8 @@ jobs:
      - name: Analyze Python 
        run: |
               export PATH=$PATH;/opt/codesonar/codesonar/bin
+              "$CODESONAR"
               "$CODESONAR" build -auth certificate -hubcert hubCert -hubKey hubKey -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" "$CODESONAR" python_scan.py "PYTHON/*.py" --sarif-output python.sarif
-
     # - name: Build and Analyze Java
     #   run: |
     #        "$JAVAC" -cp "JAVA/javax.servlet.jar" JAVA/MyServletDemo.java
