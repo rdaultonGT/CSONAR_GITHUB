@@ -72,7 +72,8 @@ jobs:
           "$CSONAR_HUB_URL"
           gcc -c -I. demo.cpp second.cpp
      - name: Analyze Python 
-       run: >
+       run: |
+              export PATH=$PATH;/opt/codesonar/codesonar/bin
               "$CODESONAR" build -auth certificate -hubcert hubCert -hubKey hubKey -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" "$CODESONAR" python_scan.py "PYTHON/*.py" --sarif-output python.sarif
 
     # - name: Build and Analyze Java
