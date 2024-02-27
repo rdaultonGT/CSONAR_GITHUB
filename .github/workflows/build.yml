@@ -73,7 +73,7 @@ jobs:
           gcc -c -I. demo.cpp second.cpp
      - name: Analyze Python 
        run: >
-              "$CODESONAR" build -auth certificate -hubcert hubCert -hubKey hubKey -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" "$CODESONAR" python_scan.py -include-sources "PYTHON/*.py"
+              "$CODESONAR" build -auth certificate -hubcert hubCert -hubKey hubKey -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" "$CODESONAR" python_scan.py "PYTHON/*.py" --sarif-output python.sarif
 
     # - name: Build and Analyze Java
     #   run: |
