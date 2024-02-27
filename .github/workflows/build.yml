@@ -48,8 +48,8 @@ jobs:
           echo "$CSONAR_HUB_PASS" > "$CSONAR_HUB_PWFILE"
           echo "$HUB_CERT" > hubCert
           echo "$HUB_KEY" > hubKey
-          mkdir /github/home/.csurf
-          mkdir /github/home/.csurf/codesonar
+          if [ ! -d /github/home/.csurf ]; then mkdir /github/home/.csurf; fi
+          if [ ! -d /github/home/.csurf/codesonar ]; then mkdir /github/home/.csurf/codesonar; fi
           echo "$TRUSTED_CERT" > /github/home/.csurf/codesonar/trusted_certs.pem
     # next line required so we can access the main branch - it wll be called remotes/origin/main
     # - run: git config --global --add safe.directory /__w/CSONAR_GITHUB/CSONAR_GITHUB
