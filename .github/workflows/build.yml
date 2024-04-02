@@ -121,6 +121,7 @@ jobs:
           "$PROJECT_NAME"
           | "$CSPYTHON" "$CSO_GITHUB/push_github_pr_comment.py"
           --api-url "$GITHUB_API_URL"
+          --cafile "$GITHUB_CAFILE"
           "$GITHUB_REPOSITORY"
           "$PULL_REQUEST_ID"
           GH_TOKEN
