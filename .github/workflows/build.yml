@@ -84,14 +84,8 @@ jobs:
             cd NODEGOAT
             npm install eslint
             npm install @microsoft/eslint-formatter-sarif
-            pwd
-            ls
-            cd node_modules
-            ls
-            cd @humanwhocodes
-            ls
-            cd object-schema
-            ls -al
+            echo "Run find .... "
+            find . -name .eslint* -print
             eslint --no-inline-config -c ./node_modules/@humanwhocodes/object-schema/.eslintrc.js -f @microsoft/eslint-formatter-sarif -o nodegoat.sarif app || true
             cd ..
             "$CODESONAR" build -auth certificate -hubcert hubCert -hubKey hubKey -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" "$CODESONAR" import_sarif.py NODEGOAT/nodegoat.sarif -analyzer eslint -include-sources "NODEGOAT/app/**/*.js"
