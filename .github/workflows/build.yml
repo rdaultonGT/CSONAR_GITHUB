@@ -85,7 +85,7 @@ jobs:
             npm install eslint
             npm install @microsoft/eslint-formatter-sarif
             echo "cat CAFILE .... "
-            cat $GITHUB_CAFILE
+            cat ../$GITHUB_CAFILE
             eslint --no-inline-config -c ./.eslintrc.js -f @microsoft/eslint-formatter-sarif -o nodegoat.sarif app || true
             cd ..
             "$CODESONAR" build -auth certificate -hubcert hubCert -hubKey hubKey -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" "$CODESONAR" import_sarif.py NODEGOAT/nodegoat.sarif -analyzer eslint -include-sources "NODEGOAT/app/**/*.js"
