@@ -31,5 +31,15 @@ void memoryLeak()
 	
 	goAndUse(ptr, ptr, 10);	
 }
-		
+
+void aBug(int x)
+{
+	char *str = NULL;
+
+	if  ( x > 0 )
+	{
+			str = malloc(10);
+	}
+	strcpy(str, "A BUG!");
+}		
 
