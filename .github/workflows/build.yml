@@ -106,6 +106,8 @@ jobs:
           -t 7200
      - name: Cleanup Credential File
        run: shred -u "$CSONAR_HUB_PWFILE"
+    # - name: Fail Action if there are new warnings
+    # DISCUSS !
      - name: Push Analysis Results to GitHub
        uses: github/codeql-action/upload-sarif@v3
        with:
