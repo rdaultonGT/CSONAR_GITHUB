@@ -32,4 +32,14 @@ void memoryLeak()
 	goAndUse(ptr, ptr, 10);	
 }
 		
+void test (int a, int b)
+{
+	if (a > 0)
+	{
+		if (b > 0)
+		{
+			int f = 10 / ( r - 10);
+		}
+	}
 
+}
