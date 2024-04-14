@@ -26,8 +26,8 @@ jobs:
       HUB_CERT: "${{ secrets.ROB_HUB_CERT }}"
       HUB_KEY: "${{ secrets.ROB_HUB_KEY }}"
       CSONAR_HUB_PWFILE: "codesonar.hub.pwfile"
-      #CSONAR_HUB_URL: "https://partnerdemo.codesonar.com"
-      CSONAR_HUB_URL: "https://duck.dyndns.org:7340"
+      CSONAR_HUB_URL: "https://partnerdemo.codesonar.com"
+      #CSONAR_HUB_URL: "https://duck.dyndns.org:7340"
       CSPYTHON: /opt/codesonar/codesonar/bin/cspython
       CSO_GITHUB: /opt/codesonar-github
       GITHUB_CAFILE: ".github/github.cert.pem"
@@ -64,8 +64,8 @@ jobs:
        run: >
           "$CODESONAR" build
           -clean
-          -auth certificate
-          -hubcert hubCert
+          -auth password
+          -hubuser hubCert
           -hubkey hubKey
           -project /ROB/"$PROJECT_NAME"
           "$PROJECT_NAME"
