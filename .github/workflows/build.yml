@@ -96,7 +96,7 @@ jobs:
           "$CODESONAR" dump_warnings.py
           -o warnings.sarif
           --hub "$CSONAR_HUB_URL"
-          -auth password -hubuser "$CSONAR_HUB_USER" -hubpwdfile "$CSONAR_HUB_PWFILE"
+          -auth password -hubuser "$CSONAR_HUB_USER" -hubpwfile "$CSONAR_HUB_PWFILE"
           --project-file "$PROJECT_NAME"
           --sarif
           --src-root "$GITHUB_WORKSPACE"
