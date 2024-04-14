@@ -66,7 +66,7 @@ jobs:
           -clean
           -auth password
           -hubuser "$CSONAR_HUB_USER"
-          -hubpwdfile "$CSONAR_HUB_PWFILE"
+          -hubpwfile "$CSONAR_HUB_PWFILE"
           -project /ROB/"$PROJECT_NAME"
           "$PROJECT_NAME"
           "$CSONAR_HUB_URL"
@@ -74,11 +74,11 @@ jobs:
      - name: Analyze Python 
        run: |
               export PATH=$PATH:/opt/codesonar/codesonar/bin
-              "$CODESONAR" build -auth password -hubuser "$CSONAR_HUB_USER" -hubpwdfile "$CSONAR_HUB_PWFILE" -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" "$CODESONAR" python_scan.py "PYTHON/*.py"
+              "$CODESONAR" build -auth password -hubuser "$CSONAR_HUB_USER" -hubpwfile "$CSONAR_HUB_PWFILE" -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" "$CODESONAR" python_scan.py "PYTHON/*.py"
     # - name: Build and Analyze Java
     #   run: |
     #        "$JAVAC" -cp "JAVA/javax.servlet.jar" JAVA/MyServletDemo.java
-    #        "$CODESONAR" build -auth password -hubuser "$CSONAR_HUB_USER" -hubpwdfile "$CSONAR_HUB_PWFILE" -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" -preset java_security "$CS_JAVA_SCAN" -include-artifacts JAVA/MyServletDemo.class -include-sources "JAVA/*.java"
+    #        "$CODESONAR" build -auth password -hubuser "$CSONAR_HUB_USER" -hubpwfile "$CSONAR_HUB_PWFILE" -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" -preset java_security "$CS_JAVA_SCAN" -include-artifacts JAVA/MyServletDemo.class -include-sources "JAVA/*.java"
      - name: analyze NodeGoat JS sources
        run: |
             cd NODEGOAT
@@ -86,11 +86,11 @@ jobs:
             npm install @microsoft/eslint-formatter-sarif
             eslint --no-inline-config -c ./.eslintrc.js -f @microsoft/eslint-formatter-sarif -o nodegoat.sarif app || true
             cd ..
-            "$CODESONAR" build -auth password -hubuser "$CSONAR_HUB_USER" -hubpwdfile "$CSONAR_HUB_PWFILE" -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" "$CODESONAR" import_sarif.py NODEGOAT/nodegoat.sarif -analyzer eslint -include-sources "NODEGOAT/app/**/*.js"
+            "$CODESONAR" build -auth password -hubuser "$CSONAR_HUB_USER" -hubpwfile "$CSONAR_HUB_PWFILE" -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" "$CODESONAR" import_sarif.py NODEGOAT/nodegoat.sarif -analyzer eslint -include-sources "NODEGOAT/app/**/*.js"
      - name: analyze the whole codebase + Kotlin OKHTTP sources
        run: |
            "$DETEKT" -i OKHTTP -r sarif:okhttp.sarif || true 
-           "$CODESONAR" analyze -auth password -hubuser "$CSONAR_HUB_USER" -hubpwdfile "$CSONAR_HUB_PWFILE" -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" -foreground -property GITHUB_COMMIT_SHA $GITHUB_SHA "$CODESONAR" import_sarif.py okhttp.sarif -analyzer detekt -include-sources "OKHTTP/**/*.kt"
+           "$CODESONAR" analyze -auth password -hubuser "$CSONAR_HUB_USER" -hubpwfile "$CSONAR_HUB_PWFILE" -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" -foreground -property GITHUB_COMMIT_SHA $GITHUB_SHA "$CODESONAR" import_sarif.py okhttp.sarif -analyzer detekt -include-sources "OKHTTP/**/*.kt"
      - name: Pull Analysis Results from CodeSonar Hub
        run: >
           "$CODESONAR" dump_warnings.py
