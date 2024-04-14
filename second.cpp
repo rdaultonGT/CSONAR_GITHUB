@@ -31,5 +31,13 @@ void memoryLeak()
 	
 	goAndUse(ptr, ptr, 10);	
 }
+
+void f()
+{
+	char a;
+
+	int x = 2 +a;
+	
+}
 		
 
