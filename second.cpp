@@ -23,13 +23,23 @@ void goAndUse(char *x, char *y, int t)
  
 void memoryLeak()
 {
-	// null pointer dereference - malloc may fail
+
 	char *ptr = (char*)malloc(24);
-	
-	// buffer overrun - ptr not large enough for string copy
+	// null pointer dereference - malloc may fail
+
 	strcpy(ptr, "Scirs Ltd");
 	
 	goAndUse(ptr, ptr, 10);	
+}
+
+int newFunc(int x)
+{
+	int uninit;
+
+	if (x > 1)
+		uninit = 10;
+
+	printf("%d\n",uninit);
 }
 		
 
