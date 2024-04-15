@@ -31,5 +31,16 @@ void memoryLeak()
 	
 	goAndUse(ptr, ptr, 10);	
 }
-		
+
+void robmemoryLeak(int x)
+{
+	// null pointer dereference - malloc may fail
+	char *ptr = (char*)malloc(24);
+	
+	// buffer overrun - ptr not large enough for string copy
+	strcpy(ptr, "Scirs Ltd");
+	
+	if (x > 1)
+		goAndUse(ptr, ptr, 10);	
+}	
 
