@@ -31,5 +31,15 @@ void memoryLeak()
 	
 	goAndUse(ptr, ptr, 10);	
 }
+
+void myfunc(int x)
+{
+	int a = 10;
+
+	if (x == 5)
+	{
+			int q = 10 / ( a - 10);
+	}
+}
 		
 
