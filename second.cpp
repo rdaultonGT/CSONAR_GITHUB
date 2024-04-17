@@ -31,5 +31,14 @@ void memoryLeak()
 	
 	goAndUse(ptr, ptr, 10);	
 }
-		
+
+int matt(int x, int y)
+{
+	char *ptr = NULL;
+
+	if (x > 1 && y > 2)
+		ptr = malloc(10);
+
+	strpcpy(ptr, "HELLO");
+}		
 
