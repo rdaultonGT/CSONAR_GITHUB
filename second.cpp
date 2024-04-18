@@ -31,5 +31,14 @@ void memoryLeak()
 	
 	goAndUse(ptr, ptr, 10);	
 }
-		
+
+int aBuggyRoutine(int x, int y)
+{
+	char *ptr = NULL;
+
+	if (x > 1 && y > 2)
+		ptr = (char*)malloc(10);
+
+	strcpy(ptr, "A NULL POINTER DEREFERENCE or BUFFER OVERFLOW");
+}	
 
