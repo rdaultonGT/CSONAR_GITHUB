@@ -125,7 +125,7 @@ jobs:
           GH_TOKEN
      - name: generate reports
        run: |
-          AID=`codesonar analysis_id.py "$PROJECT_NAME"`
+          AID="`$CODESONAR" analysis_id.py "$PROJECT_NAME"`
           echo AID is $AID
-          codesonar get -auth password -hubuser "$CSONAR_HUB_USER" -hubpwfile "$CSONAR_HUB_PWFILE" "$CSONAR_HUB_URL/report/aid-$AID-analysis.pdf?size=A4&orientation=landscape"
+          "$CODESONAR" get -auth password -hubuser "$CSONAR_HUB_USER" -hubpwfile "$CSONAR_HUB_PWFILE" "$CSONAR_HUB_URL/report/aid-$AID-analysis.pdf?size=A4&orientation=landscape"
        
