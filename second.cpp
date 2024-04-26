@@ -31,5 +31,18 @@ void memoryLeak()
 	
 	goAndUse(ptr, ptr, 10);	
 }
-		
+
+int aBuggyRoutine(int x, int y, char z)
+{
+	char *ptr = NULL;
+
+	if (x > 1 && y > 2)
+	{
+		if (z > 20)
+			ptr = (char*)malloc(10);
+
+		strcpy(ptr, "Several Bugs here!");
+	}
+	
+}
 
