@@ -32,4 +32,18 @@ void memoryLeak()
 	goAndUse(ptr, ptr, 10);	
 }
 		
+#define BUF_SIZE 10
+
+int aBuggyRoutine(int x, int y)
+{
+	char buf[BUF_SIZE];
+	
+	if (x > 1)
+	{	
+		if (y > 2)
+		{
+			strcpy(buf, "This string is too long");
+		}
+	}	
+}
 
