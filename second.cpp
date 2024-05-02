@@ -19,7 +19,7 @@ void goAndUse(char *x, char *y, int t)
 	}
 }
 
- int r = 12  - 7;
+ int r = 12  - 5;
  
 void memoryLeak()
 {
