@@ -9,7 +9,7 @@ jobs:
     permissions: write-all
     runs-on:
     # Debian 12 is my laptop
-      - Debian12
+      - csonar_github
     # MrHermeling is Marks basement machine
     # - MrHermeling
     env:
