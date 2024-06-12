@@ -76,8 +76,8 @@ jobs:
               export PATH=$PATH:/root/.cargo/bin
               cd ripgrep
               cargo clippy --no-deps --message-format=json -- -Wclippy::all  -Wclippy::pedantic -Wclippy::deprecated | clippy-sarif > rust.sarif
-              "$CODESONAR" build -auth password -hubuser "$CSONAR_HUB_USER" -hubpwfile "$CSONAR_HUB_PWFILE" -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" "$CODESONAR" import_sarif.py rust.sarif -analyzer clippy -include-sources "crates/**/*.rs"
               cd ..
+              "$CODESONAR" build -auth password -hubuser "$CSONAR_HUB_USER" -hubpwfile "$CSONAR_HUB_PWFILE" -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" "$CODESONAR" import_sarif.py ripgrep/rust.sarif -analyzer clippy -include-sources "crates/**/*.rs"
      - name: Analyze Python 
        run: |
               export PATH=$PATH:/opt/codesonar/codesonar/bin
