@@ -134,6 +134,7 @@ impl DecompressionMatcherBuilder {
         A: AsRef<OsStr>,
     {
         let glob = glob.to_string();
+        if glob.starts_with(".") { }
         let bin = try_resolve_binary(Path::new(program.as_ref()))?;
         let args =
             args.into_iter().map(|a| a.as_ref().to_os_string()).collect();
