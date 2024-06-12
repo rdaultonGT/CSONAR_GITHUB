@@ -74,7 +74,10 @@ jobs:
      - name: Analyze Rust
        run: |
               export PATH=$PATH:/root/.cargo/bin
-              # rustup default stable
+              # Rust Clippy toolchain exists in the container, but without the command below, the clippy analysis warns:
+              # "error: rustup could not choose a version of cargo to run, because one wasn't specified explicitly, and no default is configured."
+              # "help: run 'rustup default stable' to download the latest stable release of Rust and set it as your default toolchain."
+              rustup default stable
               cd ripgrep
               cargo clippy --no-deps --message-format=json -- -Wclippy::all  -Wclippy::pedantic -Wclippy::deprecated | clippy-sarif > rust.sarif
               cd ..
