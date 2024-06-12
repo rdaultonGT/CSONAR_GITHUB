@@ -81,7 +81,7 @@ jobs:
      - name: Analyze Python 
        run: |
               export PATH=$PATH:/opt/codesonar/codesonar/bin
-              "$CODESONAR" build -auth password -hubuser "$CSONAR_HUB_USER" -hubpwfile "$CSONAR_HUB_PWFILE" -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" "$CODESONAR" python_scan.py "PYTHON/*.py"
+              "$CODESONAR" build -auth password -hubuser "$CSONAR_HUB_USER" -hubpwfile "$CSONAR_HUB_PWFILE" -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" "$CODESONAR" python_scan.py -include-sources "PYTHON/*.py"
     # - name: Build and Analyze Java
     #   run: |
     #        "$JAVAC" -cp "JAVA/javax.servlet.jar" JAVA/MyServletDemo.java
