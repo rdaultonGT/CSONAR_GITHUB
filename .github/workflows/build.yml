@@ -74,6 +74,7 @@ jobs:
      - name: Analyze Rust
        run: |
               export PATH=$PATH:/root/.cargo/bin
+              rustup default stable
               cd ripgrep
               cargo clippy --no-deps --message-format=json -- -Wclippy::all  -Wclippy::pedantic -Wclippy::deprecated | clippy-sarif > rust.sarif
               cd ..
