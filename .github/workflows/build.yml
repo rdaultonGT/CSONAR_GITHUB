@@ -9,9 +9,9 @@ jobs:
     permissions: write-all
     runs-on:
     # Debian 12 is my laptop
-      - MrHermeling
+    #  - Debian12
     # MrHermeling is Marks basement machine
-    # - MrHermeling
+     - MrHermeling
     env:
       CODESONAR: /opt/codesonar/codesonar/bin/codesonar
       # JAVA_HOME needed to execute Kotlin Detekt tool
