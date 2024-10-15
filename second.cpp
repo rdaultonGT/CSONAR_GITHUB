@@ -13,9 +13,12 @@ void goAndUse(char *x, char *y, int t)
 	}
 	else
 	{
-		//free(x);
-		// leak - no free() on this path
-		// return;
+		if ( t < 11)
+		{
+			//free(x);
+			// leak - no free() on this path
+			// return;
+		}
 	}
 }
 
