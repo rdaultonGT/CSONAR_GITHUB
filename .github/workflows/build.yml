@@ -9,9 +9,9 @@ jobs:
     permissions: write-all
     runs-on:
     # Debian 12 is my laptop
-      - Debian12
+    #  - Debian12
     # MrHermeling is Marks basement machine
-    # - MrHermeling
+     - MrHermeling
     env:
       CODESONAR: /opt/codesonar/codesonar/bin/codesonar
       # JAVA_HOME needed to execute Kotlin Detekt tool
@@ -71,10 +71,21 @@ jobs:
           "$PROJECT_NAME"
           "$CSONAR_HUB_URL"
           gcc -c -I. demo.cpp second.cpp
+     - name: Analyze Rust
+       run: |
+              export PATH=$PATH:/root/.cargo/bin
+              # Rust Clippy toolchain exists in the container, but without the command below, the clippy analysis warns:
+              # "error: rustup could not choose a version of cargo to run, because one wasn't specified explicitly, and no default is configured."
+              # "help: run 'rustup default stable' to download the latest stable release of Rust and set it as your default toolchain."
+              rustup default stable
+              cd ripgrep
+              cargo clippy --no-deps --message-format=json -- -Wclippy::all  -Wclippy::pedantic -Wclippy::deprecated | clippy-sarif > rust.sarif
+              cd ..
+              "$CODESONAR" build -auth password -hubuser "$CSONAR_HUB_USER" -hubpwfile "$CSONAR_HUB_PWFILE" -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" "$CODESONAR" import_sarif.py ripgrep/rust.sarif -analyzer clippy -include-sources "ripgrep/crates/**/*.rs"
      - name: Analyze Python 
        run: |
               export PATH=$PATH:/opt/codesonar/codesonar/bin
-              "$CODESONAR" build -auth password -hubuser "$CSONAR_HUB_USER" -hubpwfile "$CSONAR_HUB_PWFILE" -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" "$CODESONAR" python_scan.py "PYTHON/*.py"
+              "$CODESONAR" build -auth password -hubuser "$CSONAR_HUB_USER" -hubpwfile "$CSONAR_HUB_PWFILE" -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" "$CODESONAR" python_scan.py -include-sources "PYTHON/*.py"
     # - name: Build and Analyze Java
     #   run: |
     #        "$JAVAC" -cp "JAVA/javax.servlet.jar" JAVA/MyServletDemo.java
