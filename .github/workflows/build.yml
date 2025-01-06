@@ -36,7 +36,7 @@ jobs:
       
     container:
     # this container includes analysis support for C/C++, Java, Python, JS family, Kotlin
-      image: ghcr.io/rdaultongt/csonar_github:toolchain-codesonar8.1p0
+      image: ghcr.io/rdaultongt/csonar_github:toolchain-codesonar8.3p0
       credentials:
          username: ${{ secrets.DOCKER_USER }}
          password: ${{ secrets.DOCKER_PASS }}
@@ -79,9 +79,10 @@ jobs:
               # "help: run 'rustup default stable' to download the latest stable release of Rust and set it as your default toolchain."
               rustup default stable
               cd ripgrep
-              cargo clippy --no-deps --message-format=json -- -Wclippy::all  -Wclippy::pedantic -Wclippy::deprecated | clippy-sarif > rust.sarif
+              # cargo clippy --no-deps --message-format=json -- -Wclippy::all  -Wclippy::pedantic -Wclippy::deprecated | clippy-sarif > rust.sarif
+              # "$CODESONAR" build -auth password -hubuser "$CSONAR_HUB_USER" -hubpwfile "$CSONAR_HUB_PWFILE" -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" "$CODESONAR" import_sarif.py ripgrep/rust.sarif -analyzer clippy -include-sources "ripgrep/crates/**/*.rs"
+              "$CODESONAR" build -auth password -hubuser "$CSONAR_HUB_USER" -hubpwfile "$CSONAR_HUB_PWFILE" -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" "$CODESONAR" rust_scan.py . -X,--,--cap-lints,warn
               cd ..
-              "$CODESONAR" build -auth password -hubuser "$CSONAR_HUB_USER" -hubpwfile "$CSONAR_HUB_PWFILE" -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" "$CODESONAR" import_sarif.py ripgrep/rust.sarif -analyzer clippy -include-sources "ripgrep/crates/**/*.rs"
      - name: Analyze Python 
        run: |
               export PATH=$PATH:/opt/codesonar/codesonar/bin
@@ -92,16 +93,20 @@ jobs:
     #        "$CODESONAR" build -auth password -hubuser "$CSONAR_HUB_USER" -hubpwfile "$CSONAR_HUB_PWFILE" -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" -preset java_security "$CS_JAVA_SCAN" -include-artifacts JAVA/MyServletDemo.class -include-sources "JAVA/*.java"
      - name: analyze NodeGoat JS sources
        run: |
-            cd NODEGOAT
-            npm install eslint
-            npm install @microsoft/eslint-formatter-sarif
-            eslint --no-inline-config -c ./.eslintrc.js -f @microsoft/eslint-formatter-sarif -o nodegoat.sarif app || true
-            cd ..
-            "$CODESONAR" build -auth password -hubuser "$CSONAR_HUB_USER" -hubpwfile "$CSONAR_HUB_PWFILE" -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" "$CODESONAR" import_sarif.py NODEGOAT/nodegoat.sarif -analyzer eslint -include-sources "NODEGOAT/app/**/*.js"
+            # cd NODEGOAT
+            # npm install eslint
+            # npm install @microsoft/eslint-formatter-sarif
+            # eslint --no-inline-config -c ./.eslintrc.js -f @microsoft/eslint-formatter-sarif -o nodegoat.sarif app || true
+            # cd ..
+            # "$CODESONAR" build -auth password -hubuser "$CSONAR_HUB_USER" -hubpwfile "$CSONAR_HUB_PWFILE" -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" "$CODESONAR" import_sarif.py NODEGOAT/nodegoat.sarif -analyzer eslint -include-sources "NODEGOAT/app/**/*.js"
+     - name: analyze Go
+       run: |
+           "$CODESONAR" build -auth password -hubuser "$CSONAR_HUB_USER" -hubpwfile "$CSONAR_HUB_PWFILE" -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" -foreground -property GITHUB_COMMIT_SHA $GITHUB_SHA "$CODESONAR" go_scan.py GO
      - name: analyze the whole codebase + Kotlin OKHTTP sources
        run: |
-           "$DETEKT" -i OKHTTP -r sarif:okhttp.sarif || true 
-           "$CODESONAR" analyze -auth password -hubuser "$CSONAR_HUB_USER" -hubpwfile "$CSONAR_HUB_PWFILE" -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" -foreground -property GITHUB_COMMIT_SHA $GITHUB_SHA "$CODESONAR" import_sarif.py okhttp.sarif -analyzer detekt -include-sources "OKHTTP/**/*.kt"
+           # "$DETEKT" -i OKHTTP -r sarif:okhttp.sarif || true 
+           # "$CODESONAR" analyze -auth password -hubuser "$CSONAR_HUB_USER" -hubpwfile "$CSONAR_HUB_PWFILE" -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" -foreground -property GITHUB_COMMIT_SHA $GITHUB_SHA "$CODESONAR" import_sarif.py okhttp.sarif -analyzer detekt -include-sources "OKHTTP/**/*.kt"
+            "$CODESONAR" analyze -auth password -hubuser "$CSONAR_HUB_USER" -hubpwfile "$CSONAR_HUB_PWFILE" -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" -foreground -property GITHUB_COMMIT_SHA $GITHUB_SHA "$CODESONAR" kotlin_scan.py okhttp3
      - name: Fail Action if there are new warnings
        run: newCount=`"$CODESONAR" dump_warnings.py --project-file "$PROJECT_NAME" -auth password -hubuser "$CSONAR_HUB_USER" -hubpwfile "$CSONAR_HUB_PWFILE" --hub "$CSONAR_HUB_URL" --visible-warnings new | wc`
      - name: Pull Analysis Results from CodeSonar Hub
