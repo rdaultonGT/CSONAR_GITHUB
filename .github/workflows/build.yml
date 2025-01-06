@@ -104,7 +104,7 @@ jobs:
        run: |
            # "$DETEKT" -i OKHTTP -r sarif:okhttp.sarif || true 
            # "$CODESONAR" analyze -auth password -hubuser "$CSONAR_HUB_USER" -hubpwfile "$CSONAR_HUB_PWFILE" -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" -foreground -property GITHUB_COMMIT_SHA $GITHUB_SHA "$CODESONAR" import_sarif.py okhttp.sarif -analyzer detekt -include-sources "OKHTTP/**/*.kt"
-            "$CODESONAR" analyze -auth password -hubuser "$CSONAR_HUB_USER" -hubpwfile "$CSONAR_HUB_PWFILE" -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" -foreground -property GITHUB_COMMIT_SHA $GITHUB_SHA "$CODESONAR" kotlin_scan.py okhttp3
+            "$CODESONAR" analyze -auth password -hubuser "$CSONAR_HUB_USER" -hubpwfile "$CSONAR_HUB_PWFILE" -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" -foreground -property GITHUB_COMMIT_SHA $GITHUB_SHA "$CODESONAR" kotlin_scan.py OKHTTP/okhttp3
      - name: Fail Action if there are new warnings
        run: newCount=`"$CODESONAR" dump_warnings.py --project-file "$PROJECT_NAME" -auth password -hubuser "$CSONAR_HUB_USER" -hubpwfile "$CSONAR_HUB_PWFILE" --hub "$CSONAR_HUB_URL" --visible-warnings new | wc`
      - name: Pull Analysis Results from CodeSonar Hub
