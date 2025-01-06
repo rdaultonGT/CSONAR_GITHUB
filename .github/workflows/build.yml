@@ -78,11 +78,9 @@ jobs:
               # "error: rustup could not choose a version of cargo to run, because one wasn't specified explicitly, and no default is configured."
               # "help: run 'rustup default stable' to download the latest stable release of Rust and set it as your default toolchain."
               rustup default stable
-              cd ripgrep
               # cargo clippy --no-deps --message-format=json -- -Wclippy::all  -Wclippy::pedantic -Wclippy::deprecated | clippy-sarif > rust.sarif
               # "$CODESONAR" build -auth password -hubuser "$CSONAR_HUB_USER" -hubpwfile "$CSONAR_HUB_PWFILE" -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" "$CODESONAR" import_sarif.py ripgrep/rust.sarif -analyzer clippy -include-sources "ripgrep/crates/**/*.rs"
-              "$CODESONAR" build -auth password -hubuser "$CSONAR_HUB_USER" -hubpwfile "$CSONAR_HUB_PWFILE" -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" "$CODESONAR" rust_scan.py . -X,--,--cap-lints,warn
-              cd ..
+              "$CODESONAR" build -auth password -hubuser "$CSONAR_HUB_USER" -hubpwfile "$CSONAR_HUB_PWFILE" -project /ROB/"$PROJECT_NAME" "$PROJECT_NAME" "$CSONAR_HUB_URL" "$CODESONAR" rust_scan.py ripgrep -X,--,--cap-lints,warn
      - name: Analyze Python 
        run: |
               export PATH=$PATH:/opt/codesonar/codesonar/bin
