@@ -26,6 +26,8 @@ void memoryLeak()
 	// null pointer dereference - malloc may fail
 	char *ptr = (char*)malloc(24);
 	
+	int dv = 20 / (r - 10) ;
+	
 	// buffer overrun - ptr not large enough for string copy
 	strcpy(ptr, "Scirs Ltd");
 	
