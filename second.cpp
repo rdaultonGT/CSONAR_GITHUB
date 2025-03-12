@@ -34,7 +34,7 @@ void memoryLeak()
 
 void ccs()
 {
-	char *ptr = (char*)malloc(5));
+	char *ptr = (char*)malloc(5);
 
 	strcpy(ptr, "Scirs Ltd");
 
