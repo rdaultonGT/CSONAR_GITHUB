@@ -23,6 +23,8 @@ void goAndUse(char *x, char *y, int t)
  
 void memoryLeak()
 {
+	int unused = 0;
+	
 	// null pointer dereference - malloc may fail
 	char *ptr = (char*)malloc(24);
 	
