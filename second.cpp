@@ -31,5 +31,13 @@ void memoryLeak()
 	
 		goAndUse(ptr, ptr, 10);	
 }
+
+void ccs()
+{
+	char *ptr = (char*)malloc(5));
+
+	strcpy(ptr, "Scirs Ltd");
+
+}
 		
 
