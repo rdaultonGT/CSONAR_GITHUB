@@ -31,5 +31,15 @@ void memoryLeak()
 	
 		goAndUse(ptr, ptr, 10);	
 }
-		
 
+void newFunc(char z)		
+{
+	int x;
+	char buf[5];
+
+	if (z > 0)
+	{
+		for (x = 0; x<=5; x++)
+			buf[x] = z;
+	}
+}
