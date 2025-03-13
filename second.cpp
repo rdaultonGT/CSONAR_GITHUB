@@ -31,5 +31,15 @@ void memoryLeak()
 	
 		goAndUse(ptr, ptr, 10);	
 }
+
+void Atul(int x)
+{
+	if (x == 5)
+	{
+		int daniel = 0;
+
+		int arul = 10 / daniel;
+	}
+}
 		
 
