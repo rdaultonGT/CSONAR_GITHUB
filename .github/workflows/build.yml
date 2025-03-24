@@ -150,7 +150,7 @@ jobs:
           with:
             name: SARIF & Report
             path: |
-              warnings.sarif
-              *.pdf
+              **/warnings.sarif
+              **/*.pdf
      - name: Cleanup Credential File
        run: shred -u "$CSONAR_HUB_PWFILE"
