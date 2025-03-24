@@ -137,7 +137,7 @@ jobs:
           "$PULL_REQUEST_ID"
           GH_TOKEN
      - name: generate and upload SARIF and report artifacts
-       run: |
+       #run: |
           #AID=`"$CODESONAR" analysis_id.py "$PROJECT_NAME"`
           #echo $AID
           #echo "$CSONAR_HUB_URL/report/aid-$AID-analysis.pdf?size=A4&orientation=landscape"
@@ -146,9 +146,9 @@ jobs:
           #ls
           #ls *.sarif
           #ls *.pdf
-          uses: actions/upload-artifact@v4
-          with:
-            name: "SARIF & Report"
-            path: warnings.sarif
+       uses: actions/upload-artifact@v4
+       with:
+         name: "SARIF & Report"
+         path: warnings.sarif
      - name: Cleanup Credential File
        run: sleep 20 && shred -u "$CSONAR_HUB_PWFILE"
