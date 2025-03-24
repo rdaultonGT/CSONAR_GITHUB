@@ -33,3 +33,9 @@ void memoryLeak()
 }
 		
 
+
+void f()
+{
+	int q;
+}
+		
