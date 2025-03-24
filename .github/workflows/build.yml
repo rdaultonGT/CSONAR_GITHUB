@@ -148,7 +148,7 @@ jobs:
           ls *.pdf
           - uses: actions/upload-artifact@v4
           with:
-            name: SARIF & Report
+            name: "SARIF & Report"
             path: |
               **/warnings.sarif
               **/*.pdf
