@@ -31,5 +31,9 @@ void memoryLeak()
 	
 		goAndUse(ptr, ptr, 10);	
 }
-		
 
+void f()
+{
+	int q;
+}
+		
