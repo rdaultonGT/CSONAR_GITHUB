@@ -31,5 +31,13 @@ void memoryLeak()
 	
 		goAndUse(ptr, ptr, 10);	
 }
+
+int g(int a)
+{
+	if ( a > 0)
+	{
+		int z = 10 / (a - a);
+	}
+}
 		
 
