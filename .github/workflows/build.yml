@@ -151,6 +151,6 @@ jobs:
             name: SARIF & Report
             path: |
               warnings.sarif
-              aid-$AID-analysis.pdf
+           #   aid-$AID-analysis.pdf
      - name: Cleanup Credential File
        run: shred -u "$CSONAR_HUB_PWFILE"
