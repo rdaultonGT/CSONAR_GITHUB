@@ -19,7 +19,6 @@ jobs:
       JAVAC: /opt/codesonar/win32-fetcher/jdk-11-x86_64-pc-linux-gnu/bin/javac
       JAVA: /opt/codesonar/win32-fetcher/jdk-11-x86_64-pc-linux-gnu/bin/java
       CS_JAVA_SCAN: /opt/codesonar/codesonar/bin/cs-java-scan
-      DETEKT: /opt/codesonar/win32-fetcher/detekt-cli/bin/detekt-cli
       CSONAR_HUB_USER: "${{ secrets.CSONAR_HUB_USER }}"
       HUB_CERT: "${{ secrets.ROB_HUB_CERT }}"
       HUB_KEY: "${{ secrets.ROB_HUB_KEY }}"
