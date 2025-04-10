@@ -21,13 +21,9 @@ jobs:
       CS_JAVA_SCAN: /opt/codesonar/codesonar/bin/cs-java-scan
       DETEKT: /opt/codesonar/win32-fetcher/detekt-cli/bin/detekt-cli
       CSONAR_HUB_USER: "${{ secrets.CSONAR_HUB_USER }}"
-      CSONAR_HUB_PASS: "${{ secrets.CSONAR_HUB_PASS }}"
-      TRUSTED_CERT: "${{ secrets.TRUSTED_CERT }}"
       HUB_CERT: "${{ secrets.ROB_HUB_CERT }}"
       HUB_KEY: "${{ secrets.ROB_HUB_KEY }}"
-      CSONAR_HUB_PWFILE: "codesonar.hub.pwfile"
       CSONAR_HUB_URL: "https://partnerdemo.codesonar.com"
-      #CSONAR_HUB_URL: "https://duck.dyndns.org:7340"
       CSPYTHON: /opt/codesonar/codesonar/bin/cspython
       CSO_GITHUB: /opt/codesonar-github
       GITHUB_CAFILE: ".github/github.cert.pem"
@@ -43,14 +39,6 @@ jobs:
     timeout-minutes: 360
     steps:
      - uses: actions/checkout@v3
-     - name: Create Hub Credential File
-       run: |
-          echo "$CSONAR_HUB_PASS" > "$CSONAR_HUB_PWFILE"
-          echo "$HUB_CERT" > hubCert
-          echo "$HUB_KEY" > hubKey
-          if [ ! -d /github/home/.csurf ]; then mkdir /github/home/.csurf; fi
-          if [ ! -d /github/home/.csurf/codesonar ]; then mkdir /github/home/.csurf/codesonar; fi
-          echo "$TRUSTED_CERT" > /github/home/.csurf/codesonar/trusted_certs.pem
      - name: build C/C++
        run: >
           "$CODESONAR" build
