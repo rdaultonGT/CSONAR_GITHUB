@@ -33,3 +33,13 @@ void memoryLeak()
 }
 		
 
+void 111memoryLeak()
+{
+	// null pointer dereference - malloc may fail
+	char *ptr = (char*)malloc(24);
+	
+	// buffer overrun - ptr not large enough for string copy
+	strcpy(ptr, "Scirs Ltd");
+	
+		goAndUse(ptr, ptr, 10);	
+}
